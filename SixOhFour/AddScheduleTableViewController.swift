@@ -22,7 +22,7 @@ class AddScheduleTableViewController: UITableViewController, UIPickerViewDataSou
     @IBOutlet weak var reminderPicker: UIPickerView!
     
     var saveButton: UIBarButtonItem!
-    var jobListEmpty = true;
+    var jobListEmpty = true
     var reminderMinutes = 16 // Maximum reminder = 15 minutes
     
     override func viewDidLoad() {
