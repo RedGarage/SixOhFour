@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
@@ -95,7 +95,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="separatorColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <sections>
                             <tableViewSection id="KaI-gg-ndP">
                                 <cells>
@@ -117,7 +118,7 @@
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstItem="KVa-qI-DnE" firstAttribute="leading" secondItem="c4y-qt-fcL" secondAttribute="trailing" constant="42" id="9d2-Y2-O3O"/>
                                                 <constraint firstAttribute="centerY" secondItem="KVa-qI-DnE" secondAttribute="centerY" id="Hjd-0x-a30"/>
@@ -126,6 +127,7 @@
                                                 <constraint firstAttribute="centerY" secondItem="c4y-qt-fcL" secondAttribute="centerY" id="gY7-iB-91h"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Has-BM-Knu">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -145,7 +147,7 @@
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstItem="8IK-uV-Hlf" firstAttribute="leading" secondItem="XLp-YX-5F1" secondAttribute="trailing" constant="73" id="0rX-Pm-Sz5"/>
                                                 <constraint firstAttribute="trailing" secondItem="8IK-uV-Hlf" secondAttribute="trailing" constant="20" id="Hyu-mL-52W"/>
@@ -182,7 +184,7 @@
                                                     </connections>
                                                 </button>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstItem="LBH-CO-rUh" firstAttribute="top" secondItem="nnA-Kc-dHh" secondAttribute="top" id="4lu-Ze-MEM"/>
                                                 <constraint firstAttribute="trailing" secondItem="o76-KP-3Q9" secondAttribute="trailing" constant="20" id="8BU-1F-yfU"/>
@@ -221,7 +223,7 @@
                                                     </constraints>
                                                 </view>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="centerY" secondItem="xgt-C9-67T" secondAttribute="centerY" id="M0S-px-Rhd"/>
                                                 <constraint firstAttribute="trailing" secondItem="eps-th-HpE" secondAttribute="trailing" constant="20" id="PfQ-nO-Mmb"/>
@@ -247,6 +249,7 @@
                                                 <constraint firstAttribute="centerX" secondItem="zjt-Wz-Djq" secondAttribute="centerX" id="T4x-9X-FHk"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
