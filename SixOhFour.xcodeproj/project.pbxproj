@@ -9,9 +9,7 @@
 /* Begin PBXBuildFile section */
 		001464781B4E06D400AC0C9F /* ClockInStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 001464771B4E06D400AC0C9F /* ClockInStoryboard.storyboard */; };
 		0014647C1B4E14FE00AC0C9F /* ClockInJobsPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0014647B1B4E14FE00AC0C9F /* ClockInJobsPopoverViewController.swift */; };
-		001464801B4F4F6600AC0C9F /* ClockIn_TimeLogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0014647F1B4F4F6600AC0C9F /* ClockIn_TimeLogCell.swift */; };
 		001464821B4F65D300AC0C9F /* TimeLogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001464811B4F65D300AC0C9F /* TimeLogs.swift */; };
-		005EAD531B52235600F8E970 /* ClockIn_EndedBreakCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005EAD521B52235600F8E970 /* ClockIn_EndedBreakCell.swift */; };
 		00FCD4601B5753E600031CBD /* detailsTimelogTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FCD45F1B5753E600031CBD /* detailsTimelogTableViewController.swift */; };
 		870CECBF1B4F4E9C00B30AAE /* PayRateTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870CECBE1B4F4E9C00B30AAE /* PayRateTableViewController.swift */; };
 		870CECC11B4F77C900B30AAE /* AddJobTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870CECC01B4F77C900B30AAE /* AddJobTableViewController.swift */; };
@@ -73,9 +71,7 @@
 /* Begin PBXFileReference section */
 		001464771B4E06D400AC0C9F /* ClockInStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ClockInStoryboard.storyboard; sourceTree = "<group>"; };
 		0014647B1B4E14FE00AC0C9F /* ClockInJobsPopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ClockInJobsPopoverViewController.swift; path = ../ClockInJobsPopoverViewController.swift; sourceTree = "<group>"; };
-		0014647F1B4F4F6600AC0C9F /* ClockIn_TimeLogCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClockIn_TimeLogCell.swift; sourceTree = "<group>"; };
 		001464811B4F65D300AC0C9F /* TimeLogs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeLogs.swift; sourceTree = "<group>"; };
-		005EAD521B52235600F8E970 /* ClockIn_EndedBreakCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClockIn_EndedBreakCell.swift; sourceTree = "<group>"; };
 		00FCD45F1B5753E600031CBD /* detailsTimelogTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = detailsTimelogTableViewController.swift; sourceTree = "<group>"; };
 		870CECBE1B4F4E9C00B30AAE /* PayRateTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayRateTableViewController.swift; sourceTree = "<group>"; };
 		870CECC01B4F77C900B30AAE /* AddJobTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddJobTableViewController.swift; sourceTree = "<group>"; };
@@ -298,8 +294,6 @@
 		B9E34BC11B508AA200B9FD88 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				0014647F1B4F4F6600AC0C9F /* ClockIn_TimeLogCell.swift */,
-				005EAD521B52235600F8E970 /* ClockIn_EndedBreakCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -479,7 +473,6 @@
 				B9C8A7B51B4E469E00C4BEEC /* AddScheduleTableViewController.swift in Sources */,
 				B90FA0551B4320A6004B4D79 /* CVCalendarContentDelegate.swift in Sources */,
 				B90FA05A1B4320A6004B4D79 /* CVCalendarMenuView.swift in Sources */,
-				001464801B4F4F6600AC0C9F /* ClockIn_TimeLogCell.swift in Sources */,
 				B90FA0621B4320A6004B4D79 /* CVCalendarViewAppearanceDelegate.swift in Sources */,
 				00FCD4601B5753E600031CBD /* detailsTimelogTableViewController.swift in Sources */,
 				B90FA0631B4320A6004B4D79 /* CVCalendarViewDelegate.swift in Sources */,
@@ -495,7 +488,6 @@
 				B90FA05B1B4320A6004B4D79 /* CVCalendarMonthContentView.swift in Sources */,
 				B9920E691B3B711A0037B44B /* MainTabBarController.swift in Sources */,
 				B9D77DE01B3C96CA00988865 /* Jobs.swift in Sources */,
-				005EAD531B52235600F8E970 /* ClockIn_EndedBreakCell.swift in Sources */,
 				B90FA05E1B4320A6004B4D79 /* CVCalendarView.swift in Sources */,
 				870CECC11B4F77C900B30AAE /* AddJobTableViewController.swift in Sources */,
 				874FACFB1B33A9D7002EABB0 /* SixOhFour.xcdatamodeld in Sources */,
