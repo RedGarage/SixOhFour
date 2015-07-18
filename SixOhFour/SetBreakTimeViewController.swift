@@ -22,6 +22,8 @@ class SetBreakTimeViewController: UIViewController, UIPickerViewDataSource, UIPi
     var breakHoursSetIntial = 0 //intial value, but then changed with segue
     var breakMinutesSetIntial = 0 //intial value, but then changed with segue
     
+    var doneButton : UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -36,6 +38,8 @@ class SetBreakTimeViewController: UIViewController, UIPickerViewDataSource, UIPi
         println("breakMinutesSet from Clockin = \(breakMinutes)")
         println("breakHoursSet from Clockin = \(breakHours)")
 
+        doneButton = UIBarButtonItem(title: "Done", style: .Plain, target: self, action: "doneSettingBreak")
+        self.navigationItem.rightBarButtonItem = doneButton
     }
 
     
@@ -44,8 +48,7 @@ class SetBreakTimeViewController: UIViewController, UIPickerViewDataSource, UIPi
         // Dispose of any resources that can be recreated.
     }
     
-    @IBOutlet weak var doneSettingBreaktimeButton: UIButton!
-    @IBAction func doneSettingBreaktimeAction(sender: AnyObject) {
+    func doneSettingBreak () {
         self.performSegueWithIdentifier("unwindFromSetBreakTimeViewController", sender: self)
     }
 

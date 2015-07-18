@@ -14,7 +14,7 @@ class ClockInJobsPopoverViewController: UIViewController, UITableViewDataSource,
     @IBOutlet weak var ClockInJobsTable: UITableView!
     
     var arrayOfJobs = [Jobs]()
-    var selectedJob: Jobs!
+    var selectedJobIndex: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,8 +50,8 @@ class ClockInJobsPopoverViewController: UIViewController, UITableViewDataSource,
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.selectedJob = arrayOfJobs[indexPath.row]
-
+        
+        self.selectedJobIndex = indexPath.row
         self.dismissViewControllerAnimated(true, completion: {})
         
         self.performSegueWithIdentifier("unwindFromClockInPopoverViewControllerIdentifier", sender: self)

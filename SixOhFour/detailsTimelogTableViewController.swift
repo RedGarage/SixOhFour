@@ -10,53 +10,25 @@ class detailsTimelogViewController: UITableViewController{ //, writeValueBackDel
     @IBOutlet weak var timestampLabel: UILabel!
     @IBOutlet weak var commentTextField: UITextField!
     
-//    @IBAction func payRateButtonPressed(sender: AnyObject) {
-//        let addJobStoryboard: UIStoryboard = UIStoryboard(name: "AddJobStoryboard", bundle: nil)
-//        var payRateTableViewController: PayRateTableViewController = addJobStoryboard.instantiateViewControllerWithIdentifier("PayRateTableViewController") as! PayRateTableViewController
-//        payRateTableViewController.writeValueDelegate = self
-//        navigationController?.pushViewController(payRateTableViewController, animated: true)
-//    }
-    
-//    @IBAction func saveJobButton(sender: AnyObject) {
-//        if nItem != nil {
-//            editItem()
-//        } else {
-//            newItem()
-//        }
-//        navigationController?.popToRootViewControllerAnimated(true)
-//    }
-    
-    @IBAction func doneButton(sender: AnyObject) {
-            editItem()
-            navigationController?.popToRootViewControllerAnimated(true)
-        }
+    var doneButton : UIBarButtonItem!
 
-    
     let context = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
-    var nItem : TimeLogs? = nil
+    var nItem : TimeLogs! // will change from pushed data Segue
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        println(nItem)
         
-        if nItem != nil {
-        
-            jobLabel.text = nItem?.timelogJob
-            entryLabel.text = nItem?.timelogTitle
-            timestampLabel.text = nItem?.timelogTimestamp
-            commentTextField.text = nItem?.timelogComment
-        
-        } else {
-            
-        jobLabel.text = "Red Garage"
-        entryLabel.text = "Test"
-        timestampLabel.text = "Test2"
-        commentTextField.text = "Test3"
+        jobLabel.text = nItem?.timelogJob
+        entryLabel.text = nItem?.timelogTitle
+        timestampLabel.text = nItem?.timelogTimestamp
+        commentTextField.text = nItem?.timelogComment
 
-        }
         
+        doneButton = UIBarButtonItem(title: "Done", style: .Plain, target: self, action: "doneSettingDetails")
+        self.navigationItem.rightBarButtonItem = doneButton
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -64,31 +36,20 @@ class detailsTimelogViewController: UITableViewController{ //, writeValueBackDel
         // Dispose of any resources that can be recreated.
     }
     
-//    func writeValueBack(vc: PayRateTableViewController, value: String) {
-//        self.payRateLabel.text = "$\(value)"
-//    }
-    
-    
-//    func newItem() {
-//        let context = self.context
-//        let ent = NSEntityDescription.entityForName("Jobs", inManagedObjectContext: context!)
-//        
-//        let nItem = TimeLogs(entity: ent!, insertIntoManagedObjectContext: context)
-//        nItem.timelogJob = jobLabel.text!
-//        nItem.timelogTitle = entryLabel.text!
-//        nItem.timelogTimestamp = timestampLabel.text!
-//        nItem.timelogComment = commentTextField.text!
-//        context!.save(nil)
-//    }
     
     
     func editItem() {
-//        nItem!.timelogJob = jobLabel.text!
-//        nItem!.timelogTitle = entryLabel.text!
-//        nItem!.timelogTimestamp = timestampLabel.text!
-//        nItem!.timelogComment = commentTextField.text!
+        nItem!.timelogJob = jobLabel.text!
+        nItem!.timelogTitle = entryLabel.text!
+        nItem!.timelogTimestamp = timestampLabel.text!
+        nItem!.timelogComment = commentTextField.text!
         println(nItem)
         context!.save(nil)
     }
     
+    func doneSettingDetails () {
+        editItem()
+        println(nItem)
+        self.performSegueWithIdentifier("unwindFromDetailsTimelogViewController", sender: self)
+    }
 }
