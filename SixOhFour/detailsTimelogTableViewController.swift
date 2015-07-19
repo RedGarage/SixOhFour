@@ -12,6 +12,7 @@ class detailsTimelogViewController: UITableViewController, UIPickerViewDelegate 
     @IBOutlet weak var commentTextField: UITextField!
     @IBOutlet weak var timestampPicker: UIDatePicker!
     
+    var entrySelectedIndex : Int = -1
     var jobLabelDisplay = ""
     var jobColorDisplayPassed : UIColor!
     var doneButton : UIBarButtonItem!
@@ -19,7 +20,8 @@ class detailsTimelogViewController: UITableViewController, UIPickerViewDelegate 
     let context = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
     var nItem : TimeLogs? = nil // will change from pushed data Segue
-//    var nItem : TimeLogs!
+    
+    var nItem2 : TimeLogs? = nil // will change from pushed data Segue
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +39,21 @@ class detailsTimelogViewController: UITableViewController, UIPickerViewDelegate 
 
         datePickerChanged(timestampLabel, timestampPicker)
 
-        
+        if nItem2 == nil {
+            //No Minimum Data
+        } else {
+            println("YOOOOOOOOOOOOOOOOOOOOOOOnItem2 = \(nItem2)")
+            
+            //Calculate Minimum date (convert String to NSDate)
+        let minDateString = nItem2!.timelogTimestamp
+        let dateFormatterMin = NSDateFormatter()
+        dateFormatterMin.dateFormat = "MMM dd, yyyy, hh:mm:ss aa"
+        let minDate = dateFormatterMin.dateFromString(minDateString)
+        let calendar = NSCalendar.autoupdatingCurrentCalendar()
+        var newMinDate = calendar.dateByAddingUnit(.CalendarUnitHour, value: -7, toDate: minDate!, options: nil)
+        println("newMinDate = \(newMinDate)")
+        timestampPicker.minimumDate = newMinDate
+        }
     }
     
     @IBAction func timestampChanged(sender: AnyObject) {
@@ -76,18 +92,7 @@ func datePickerChanged(label: UILabel, datePicker: UIDatePicker) {
     label.text = dateFormatter.stringFromDate(datePicker.date)
     
     datePicker.maximumDate = NSDate()
-    
-//    if datePicker == timestampPicker {
-//        if datePicker.date.compare(timestampPicker.date) == NSComparisonResult.OrderedDescending {
-//            endLabel.text = label.text
-//            endDatePicker.date = datePicker.date
-//        } else {
-//            endLabel.text = dateFormatter.stringFromDate(endDatePicker.date)
-//        }
-//    }
-    
-    
-//    toggleSaveButton()
+
 }
 
 
