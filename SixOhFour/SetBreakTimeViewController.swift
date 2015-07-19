@@ -14,7 +14,7 @@ class SetBreakTimeViewController: UIViewController, UIPickerViewDataSource, UIPi
     @IBOutlet weak var SetBreakTimePicker: UIPickerView!
     
     var breakHoursRange = 3
-    var breakMinutesRange = 59
+    var breakMinutesRange = 60
 
     var breakHours = 0 //intial value, but then changed with segue
     var breakMinutes = 0 //intial value, but then changed with segue
@@ -96,7 +96,13 @@ class SetBreakTimeViewController: UIViewController, UIPickerViewDataSource, UIPi
             println("breakMinutesSet changed to \(breakMinutes)")
         } else if component == 1 {
             breakMinutes = row
+            
+            if breakMinutes == 0 && breakHours == 0 {
+                breakMinutes = 1
+                println("Minimum 1 min break")
+            } else {
             println("breakMinutesSet changed to \(breakMinutes)")
+            }
         }
     }
     
