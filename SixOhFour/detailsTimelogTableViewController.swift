@@ -16,13 +16,17 @@ class detailsTimelogViewController: UITableViewController, UIPickerViewDelegate 
     var jobLabelDisplay = ""
     var jobColorDisplayPassed : UIColor!
     var doneButton : UIBarButtonItem!
-
+    var noMinDate : Bool = false
+    var noMaxDate : Bool = false
+    
     let context = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
-    var nItem : TimeLogs? = nil // will change from pushed data Segue
+    var nItem : TimeLogs! // will change from pushed data Segue
     
-    var nItem2 : TimeLogs? = nil // will change from pushed data Segue
-    
+    var nItemPrevious : TimeLogs! // will change from pushed data Segue
+
+    var nItemNext : TimeLogs! // will change from pushed data Segue
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,29 +40,56 @@ class detailsTimelogViewController: UITableViewController, UIPickerViewDelegate 
         doneButton = UIBarButtonItem(title: "Done", style: .Plain, target: self, action: "doneSettingDetails")
         self.navigationItem.rightBarButtonItem = doneButton
 
+        
+        //Calculate Minimum date (convert String to NSDate)
+        let entryDateString = nItem.timelogTimestamp
+        let dateFormatterEntry = NSDateFormatter()
+        dateFormatterEntry.dateFormat = "MMM dd, yyyy, hh:mm:ss aa"
+        let entryDate = dateFormatterEntry.dateFromString(entryDateString)
+        timestampPicker.date = entryDate!
 
-        datePickerChanged(timestampLabel, timestampPicker)
-
-        if nItem2 == nil {
+        datePickerChanged(timestampLabel!, timestampPicker!)
+        
+        if noMinDate == true {
             //No Minimum Data
+            println("FIRST ENTRY CHOOSEN = no min date")
+
         } else {
-            println("YOOOOOOOOOOOOOOOOOOOOOOOnItem2 = \(nItem2)")
-            
             //Calculate Minimum date (convert String to NSDate)
-        let minDateString = nItem2!.timelogTimestamp
-        let dateFormatterMin = NSDateFormatter()
-        dateFormatterMin.dateFormat = "MMM dd, yyyy, hh:mm:ss aa"
-        let minDate = dateFormatterMin.dateFromString(minDateString)
-        let calendar = NSCalendar.autoupdatingCurrentCalendar()
-        var newMinDate = calendar.dateByAddingUnit(.CalendarUnitHour, value: -7, toDate: minDate!, options: nil)
-        println("newMinDate = \(newMinDate)")
-        timestampPicker.minimumDate = newMinDate
+            let minDateString = nItemPrevious.timelogTimestamp
+            let dateFormatterMin = NSDateFormatter()
+            dateFormatterMin.dateFormat = "MMM dd, yyyy, hh:mm:ss aa"
+            let minDate = dateFormatterMin.dateFromString(minDateString)
+            print("minDate = \(minDate)")
+            timestampPicker.minimumDate = minDate
+            println("timestampPicker.minimumDate \(timestampPicker.minimumDate!)")
         }
+
+        if noMaxDate == true {
+            //No NextTimeStamp for Maxium Data
+            timestampPicker.maximumDate = NSDate()
+            println("LAST ENTRY CHOOSEN = NSDATE used")
+        } else {
+            //Calculate Maximum date (convert String to NSDate)
+
+                println(nItemNext)
+            let maxDateString = nItemNext.timelogTimestamp
+            let dateFormatterMin = NSDateFormatter()
+            dateFormatterMin.dateFormat = "MMM dd, yyyy, hh:mm:ss aa"
+            let maxDate = dateFormatterMin.dateFromString(maxDateString)
+            print("maxDate = \(maxDate)")
+            timestampPicker.maximumDate = maxDate
+            println("timestampPicker.maximumDate \(timestampPicker.maximumDate!)")
+        }
+        
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        
     }
     
     @IBAction func timestampChanged(sender: AnyObject) {
-        datePickerChanged(timestampLabel, timestampPicker)
-
+        datePickerChanged(timestampLabel!, timestampPicker!)
     }
     
     override func didReceiveMemoryWarning() {
@@ -85,15 +116,18 @@ class detailsTimelogViewController: UITableViewController, UIPickerViewDelegate 
 // MARK: - Date Picker
 
 func datePickerChanged(label: UILabel, datePicker: UIDatePicker) {
+    
     let dateFormatter = NSDateFormatter()
     dateFormatter.dateStyle = NSDateFormatterStyle.MediumStyle
     dateFormatter.timeStyle = NSDateFormatterStyle.MediumStyle
     
     label.text = dateFormatter.stringFromDate(datePicker.date)
+
     
-    datePicker.maximumDate = NSDate()
 
 }
+
+
 
 
     
