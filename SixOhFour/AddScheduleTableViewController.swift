@@ -22,7 +22,7 @@ class AddScheduleTableViewController: UITableViewController, UIPickerViewDataSou
     @IBOutlet weak var reminderPicker: UIPickerView!
     
     var saveButton: UIBarButtonItem!
-    var jobListEmpty = true;
+    var jobListEmpty = true
     var reminderMinutes = 16 // Maximum reminder = 15 minutes
     
     override func viewDidLoad() {
@@ -54,7 +54,7 @@ class AddScheduleTableViewController: UITableViewController, UIPickerViewDataSou
             jobNameLabel.text = firstJob.jobName
             
             var jc = JobColor()
-            jobColorView.color = jc.getJobColor(firstJob.jobColor)
+// (jobColorView.color = jc.getJobColor(firstJob.jobColor))
             jobListEmpty = false
         } else {
             jobNameLabel.text = "Add a Job"
@@ -96,8 +96,7 @@ class AddScheduleTableViewController: UITableViewController, UIPickerViewDataSou
             jobNameLabel.text = sourceVC.selectedJob.jobName
             
             var jc = JobColor()
-            
-            jobColorView.color = jc.getJobColor(sourceVC.selectedJob.jobColor)
+// (jobColorView.color = jc.getJobColor(sourceVC.selectedJob.jobColor))
         }
     }
     
@@ -366,10 +365,8 @@ class AddScheduleTableViewController: UITableViewController, UIPickerViewDataSou
                 let addJobsVC: AddJobTableViewController = addJobStoryboard.instantiateViewControllerWithIdentifier("AddJobTableViewController") as! AddJobTableViewController
                 
                 self.navigationController?.pushViewController(addJobsVC, animated: true)
-                
             
                 return false
-                
             } else {
                 return true
             }
@@ -378,6 +375,7 @@ class AddScheduleTableViewController: UITableViewController, UIPickerViewDataSou
         return true
         
     }
+
     
 
 }

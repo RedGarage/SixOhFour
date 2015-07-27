@@ -51,17 +51,49 @@ class ClockInViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var startStopButton: UIButton!
     @IBOutlet weak var breakButton: UIButton! //lapreset
     
+    var jobListEmpty = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Do any additional setup after loading the view, typically from a nib.
         self.lapsTableView.rowHeight = 30.0
-        jobTitleDisplayLabel.text = "Select Job"
         workTitleLabel.text = " "
         workTimeLabel.text = "00:00:00"
         breakButton.enabled = false
         breakTitleLabel.text = " "
         breakTimeLabel.text = " "
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
+        
+        // Fetch first Job
+        var appDel:AppDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
+        var context:NSManagedObjectContext = appDel.managedObjectContext!
+        
+        var request = NSFetchRequest(entityName: "Jobs")
+        request.returnsObjectsAsFaults = false ;
+        
+        var results:NSArray = context.executeFetchRequest(request, error: nil)!
+        
+        if results.count > 0 {
+            var firstJob = results[0] as! Jobs
+            jobTitleDisplayLabel.text = firstJob.jobName
+//            jobColorDisplay.color = firstJob.getJobColor()
+            jobTitleDisplayLabel.textColor = UIColor.blackColor()
+            jobListEmpty = false
+        } else {
+            jobTitleDisplayLabel.text = "Add a Job"
+            jobTitleDisplayLabel.textColor = UIColor.blueColor()
+            jobColorDisplay.color = UIColor.lightGrayColor()
         }
+        
+        if jobListEmpty {
+            startStopButton.enabled = false
+            workTimeLabel.textColor = UIColor.grayColor()
+        }
+    }
     
 //MARK: IBActions:
 //2 buttons control clockin,clockout,start break, end break, reset
@@ -241,6 +273,20 @@ class ClockInViewController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
     
+    @IBAction func selectJobButton(sender: AnyObject) {
+        if jobListEmpty {
+            let addJobStoryboard: UIStoryboard = UIStoryboard(name: "AddJobStoryboard", bundle: nil)
+            let addJobsVC: AddJobTableViewController = addJobStoryboard.instantiateViewControllerWithIdentifier("AddJobTableViewController") as! AddJobTableViewController
+            
+            self.navigationController?.pushViewController(addJobsVC, animated: true)
+            
+            jobListEmpty = false
+        } else {
+            self.shouldPerformSegueWithIdentifier("displayPopover", sender: self)
+        }
+    }
+    
+    
 //MARK: functions
     
     func allTimeLogsFetchRequest() -> NSFetchRequest {
@@ -326,14 +372,14 @@ class ClockInViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBAction func unwindFromClockInPopoverViewControllerAction (segue: UIStoryboardSegue) {
         let sourceVC = segue.sourceViewController as! ClockInJobsPopoverViewController
         
-        if((sourceVC.selectedJob) != nil ) {
-            
-            jobTitleDisplayLabel.text = sourceVC.selectedJob.jobName
-            
-            var jc = JobColor()
-            
-            jobColorDisplay.color = jc.getJobColor(sourceVC.selectedJob.jobColor)
-        }
+//        if((sourceVC.selectedJob) != nil ) {
+//            
+//            jobTitleDisplayLabel.text = sourceVC.selectedJob.jobName
+//            
+//            var jc = JobColor()
+//            
+//            jobColorDisplay.color = jc.getJobColor(sourceVC.selectedJob.jobColor)
+//        }
     }
 
     
@@ -399,9 +445,7 @@ class ClockInViewController: UIViewController, UITableViewDelegate, UITableViewD
 //Segues
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
     {
-        //Popover Effect - Drop down menu --->>>>>
-        if let popupView = segue.destinationViewController as? UIViewController
-        {
+        if let popupView = segue.destinationViewController as? UIViewController {
             if let popup = popupView.popoverPresentationController
             {
                 popup.delegate = self

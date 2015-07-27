@@ -64,7 +64,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         cell.jobNameLabel.text = jobs.jobName
         
         var jc = JobColor()
-        cell.jobColorView.color = jc.getJobColor(jobs.jobColor)
+//        cell.jobColorView.color = jc.getJobColor(jobs.jobColor)
         
         return cell
     }

@@ -5,6 +5,13 @@
         <attribute name="jobName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="jobPay" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="jobPosition" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="shifts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Shifts" inverseName="job" inverseEntity="Shifts" syncable="YES"/>
+    </entity>
+    <entity name="Shifts" syncable="YES">
+        <attribute name="duration" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="jobName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="job" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Jobs" inverseName="shifts" inverseEntity="Jobs" syncable="YES"/>
+        <relationship name="timeLogs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TimeLogs" inverseName="shift" inverseEntity="TimeLogs" syncable="YES"/>
     </entity>
     <entity name="TimeLogs" syncable="YES">
         <attribute name="timelogComment" optional="YES" attributeType="String" syncable="YES"/>
@@ -12,9 +19,11 @@
         <attribute name="timelogJob" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="timelogTimestamp" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="timelogTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="shift" maxCount="1" deletionRule="Nullify" destinationEntity="Shifts" inverseName="timeLogs" inverseEntity="Shifts" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Jobs" positionX="-63" positionY="-18" width="128" height="105"/>
-        <element name="TimeLogs" positionX="-63" positionY="9" width="128" height="120"/>
+        <element name="Jobs" positionX="-63" positionY="36" width="128" height="118"/>
+        <element name="Shifts" positionX="133" positionY="95" width="128" height="103"/>
+        <element name="TimeLogs" positionX="322" positionY="117" width="128" height="135"/>
     </elements>
 </model>
