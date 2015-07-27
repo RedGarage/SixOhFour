@@ -80,7 +80,7 @@ class ClockInViewController: UIViewController, UITableViewDelegate, UITableViewD
         if results.count > 0 {
             var firstJob = results[0] as! Jobs
             jobTitleDisplayLabel.text = firstJob.jobName
-            jobColorDisplay.color = firstJob.getJobColor()
+//            jobColorDisplay.color = firstJob.getJobColor()
             jobTitleDisplayLabel.textColor = UIColor.blackColor()
             jobListEmpty = false
         } else {
@@ -372,14 +372,14 @@ class ClockInViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBAction func unwindFromClockInPopoverViewControllerAction (segue: UIStoryboardSegue) {
         let sourceVC = segue.sourceViewController as! ClockInJobsPopoverViewController
         
-        if((sourceVC.selectedJob) != nil ) {
-            
-            jobTitleDisplayLabel.text = sourceVC.selectedJob.jobName
-            
-            var jc = JobColor()
-            
-            jobColorDisplay.color = jc.getJobColor(sourceVC.selectedJob.jobColor)
-        }
+//        if((sourceVC.selectedJob) != nil ) {
+//            
+//            jobTitleDisplayLabel.text = sourceVC.selectedJob.jobName
+//            
+//            var jc = JobColor()
+//            
+//            jobColorDisplay.color = jc.getJobColor(sourceVC.selectedJob.jobColor)
+//        }
     }
 
     

@@ -68,7 +68,7 @@ class AddJobTableViewController: UITableViewController, UIPickerViewDataSource, 
             nameTextField.text = nItem?.jobName
             positionTextField.text = nItem?.jobPosition
             payRateLabel.text = nItem?.jobPay
-            colorLabel.text = nItem?.jobColor
+// (colorLabel.text = nItem?.jobColor)
             if jobColorView != nil {
                 var jc = JobColor()
                 jobColorView.color = jc.getJobColor(colorLabel.text!)
@@ -140,7 +140,7 @@ class AddJobTableViewController: UITableViewController, UIPickerViewDataSource, 
         nItem.jobName = nameTextField.text
         nItem.jobPosition = positionTextField.text
         nItem.jobPay = payRateLabel.text!
-        nItem.jobColor = colorLabel.text!
+// (nItem.jobColor = colorLabel.text!)
         context!.save(nil)
     }
         
@@ -148,7 +148,7 @@ class AddJobTableViewController: UITableViewController, UIPickerViewDataSource, 
         nItem!.jobName = nameTextField.text
         nItem!.jobPosition = positionTextField.text
         nItem!.jobPay = payRateLabel.text!
-        nItem!.jobColor = colorLabel.text!
+// (nItem!.jobColor = colorLabel.text!)
         context!.save(nil)
     }
     

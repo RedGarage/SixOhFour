@@ -54,7 +54,7 @@ class AddScheduleTableViewController: UITableViewController, UIPickerViewDataSou
             jobNameLabel.text = firstJob.jobName
             
             var jc = JobColor()
-            jobColorView.color = jc.getJobColor(firstJob.jobColor)
+// (jobColorView.color = jc.getJobColor(firstJob.jobColor))
             jobListEmpty = false
         } else {
             jobNameLabel.text = "Add a Job"
@@ -96,8 +96,7 @@ class AddScheduleTableViewController: UITableViewController, UIPickerViewDataSou
             jobNameLabel.text = sourceVC.selectedJob.jobName
             
             var jc = JobColor()
-            
-            jobColorView.color = jc.getJobColor(sourceVC.selectedJob.jobColor)
+// (jobColorView.color = jc.getJobColor(sourceVC.selectedJob.jobColor))
         }
     }
     

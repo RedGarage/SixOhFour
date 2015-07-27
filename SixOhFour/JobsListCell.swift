@@ -18,7 +18,7 @@ class JobsListCell: UITableViewCell {
             jobNameLabel.text = job.jobName
             
             var jc = JobColor()
-            jobColorView.color = jc.getJobColor(job.jobColor)
+// (jobColorView.color = jc.getJobColor(job.jobColor))
         }
     }
     
