@@ -21,29 +21,17 @@ class JobOverviewViewController: UIViewController, NSFetchedResultsControllerDel
     @IBOutlet weak var lastThirtyDaysLabel: UILabel!
     @IBOutlet weak var yearToDateLabel: UILabel!
     
-    
+    var editButton: UIBarButtonItem!
+    var job: Jobs!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        editButton = UIBarButtonItem(title: "Edit", style: .Plain, target: self, action: "editJob")
+        self.navigationItem.rightBarButtonItem = editButton
         
-        var appDel:AppDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
-        var context:NSManagedObjectContext = appDel.managedObjectContext!
+        self.title = job.jobName
         
-        var request = NSFetchRequest(entityName: "Jobs")
-        request.returnsObjectsAsFaults = false ;
-        
-        var results:NSArray = context.executeFetchRequest(request, error: nil)!
-        
-        if results.count > 0 {
-            var firstJob = results[0] as! Jobs
-            nameLabel.text = firstJob.jobName
-            
-            var firstPosition = results[0] as! Jobs
-            positionLabel.text = firstPosition.jobPosition
-            
-            var firstPay = results[0] as! Jobs
-            payLabel.text = "$\(firstPay.jobPay)/hr"
-        }
+        nameLabel.text = job.jobName
     }
 
     override func didReceiveMemoryWarning() {
@@ -51,15 +39,15 @@ class JobOverviewViewController: UIViewController, NSFetchedResultsControllerDel
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func editJob() {
+        self.performSegueWithIdentifier("editJob", sender: self)
     }
-    */
 
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "editJob" {
+            let destinationVC = segue.destinationViewController as! AddJobTableViewController
+            destinationVC.job = self.job
+        }
+    }
+    
 }

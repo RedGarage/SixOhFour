@@ -10,7 +10,6 @@ import UIKit
 
 class JobColor: NSObject {
     
-    
     func getJobColor(jobColor: String) -> UIColor {
         
         if jobColor == "Red" {
@@ -27,4 +26,5 @@ class JobColor: NSObject {
             return UIColor.blackColor()
         }
     }
+    
 }

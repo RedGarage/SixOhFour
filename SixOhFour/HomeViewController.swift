@@ -9,25 +9,12 @@
 import UIKit
 import CoreData
 
-class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate {
-    
-    let context : NSManagedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext!
-    
-    var frc : NSFetchedResultsController = NSFetchedResultsController()
-    
-    func getFetchedResultsController() -> NSFetchedResultsController {
-        frc = NSFetchedResultsController(fetchRequest: jobsFetchRequest(), managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-        return frc
-    }
-    
-    func jobsFetchRequest() -> NSFetchRequest {
-        let fetchRequest = NSFetchRequest(entityName: "Jobs")
-        let sortDescriptor = NSSortDescriptor(key: "jobName", ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        return fetchRequest
-    }
+class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
+    
+    var job: Jobs!
+    var jobsList = [Jobs]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,42 +22,53 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.dataSource = self
         tableView.delegate = self
         
-        frc = getFetchedResultsController()
-        frc.delegate = self
-        frc.performFetch(nil)
-        
-        // Do any additional setup after loading the view.
+        fetchData()
     }
     
-    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        fetchData()
+        
         tableView.reloadData()
     }
     
+    func fetchData() {
+        var appDel:AppDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
+        var context:NSManagedObjectContext = appDel.managedObjectContext!
+        
+        var request = NSFetchRequest(entityName: "Jobs")
+        request.returnsObjectsAsFaults = false ;
+        
+        var results:NSArray = context.executeFetchRequest(request, error: nil)!
+        
+        jobsList = results as! [Jobs]
+    }
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        let numberOfSections = frc.sections?.count
-        return numberOfSections!
+        return 1
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let numberOfRowsInSection = frc.sections?[section].numberOfObjects
-        return numberOfRowsInSection!
+       return jobsList.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("JobsListCell", forIndexPath: indexPath) as! JobsListCell
         
-        let jobs = frc.objectAtIndexPath(indexPath) as! Jobs
-        
-        cell.jobNameLabel.text = jobs.jobName
+        cell.jobNameLabel.text = jobsList[indexPath.row].jobName
         
         var jc = JobColor()
-        cell.jobColorView.color = jc.getJobColor(jobs.jobColor)
+        cell.jobColorView.color = jc.getJobColor(jobsList[indexPath.row].jobColor)
         
         return cell
     }
     
-    
-    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.job = jobsList[indexPath.row]
+
+        self.performSegueWithIdentifier("jobOverview", sender: self)
+    }
     
     // MARK: - Navigation
     
@@ -79,15 +77,10 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         
-        if segue.identifier == "edit" {
-            let cell = sender as! UITableViewCell
-            let indexPath = tableView.indexPathForCell(cell)
-            let itemController : AddJobTableViewController = segue.destinationViewController as! AddJobTableViewController
-            let nItem : Jobs = frc.objectAtIndexPath(indexPath!) as! Jobs
-            itemController.nItem = nItem
-            
+        if segue.identifier == "jobOverview" {
+            let destinationVC = segue.destinationViewController as! JobOverviewViewController
+            destinationVC.job = self.job
         }
     }
-    
     
 }

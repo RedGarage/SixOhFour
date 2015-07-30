@@ -52,7 +52,6 @@
                                         <connections>
                                             <outlet property="jobColorView" destination="apQ-5g-RWz" id="dh5-Mc-qaj"/>
                                             <outlet property="jobNameLabel" destination="e6c-Ag-4Ph" id="FnV-Eg-ubW"/>
-                                            <segue destination="VWE-CX-2nS" kind="show" identifier="edit" id="WLJ-6c-2JQ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -81,6 +80,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="tableView" destination="5We-xa-uUS" id="SLa-sR-st2"/>
+                        <segue destination="Etx-t5-bnS" kind="show" identifier="jobOverview" id="zia-dj-cRT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vXd-mB-cdX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -713,11 +713,12 @@
                         <outlet property="totalHoursLabel" destination="xI7-DR-oUD" id="thJ-P3-iHU"/>
                         <outlet property="weekEarningLabel" destination="sIt-bf-mId" id="LUm-Nk-lay"/>
                         <outlet property="yearToDateLabel" destination="YE6-5u-a2h" id="mO7-WQ-hgz"/>
+                        <segue destination="VWE-CX-2nS" kind="show" identifier="editJob" id="OcE-Uy-c04"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C5n-ZV-14U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3251.5" y="-1458.5"/>
+            <point key="canvasLocation" x="3200.5" y="-1193.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="r11-ZW-jXu">
@@ -751,6 +752,6 @@
         <image name="Plus" width="16" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="WLJ-6c-2JQ"/>
+        <segue reference="OcE-Uy-c04"/>
     </inferredMetricsTieBreakers>
 </document>

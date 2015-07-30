@@ -9,31 +9,43 @@
 import UIKit
 import CoreData
 
-//@objc protocol writeValueBackDelegate {
-//    func writeValueBack(vc: PayRateTableViewController, value: String)
-//}
-
 class PayRateTableViewController: UITableViewController {
     
     var payRate: PayRate!
-    
-//    var writeValueDelegate: writeValueBackDelegate?
-    
     var saveButton: UIBarButtonItem!
 
     @IBOutlet weak var payTextField: UITextField!
-    
     @IBOutlet weak var toggleOvertime: UISwitch!
     @IBOutlet weak var toggleSpecial: UISwitch!
     @IBOutlet weak var toggleShift: UISwitch!
+    
     @IBAction func toggleOvertimeValue(sender: AnyObject) {
         tableView.reloadData()
     }
+    
     @IBAction func toggleSpecialValue(sender: AnyObject) {
         tableView.reloadData()
     }
+    
     @IBAction func toggleShiftValue(sender: AnyObject) {
         tableView.reloadData()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        saveButton = UIBarButtonItem(title: "Save", style: .Plain, target: self, action: "savePayRate")
+        self.navigationItem.rightBarButtonItem = saveButton
+        
+        self.title = "Pay Rate"
+        
+        payTextField.text = payRate.payRate
+        
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+        
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -56,41 +68,9 @@ class PayRateTableViewController: UITableViewController {
         }
     }
     
-//    override func viewWillDisappear(animated: Bool) {
-//        super.viewWillDisappear(true)
-//        
-//        if let delegate = writeValueDelegate {
-//            delegate.writeValueBack(self, value: payTextField.text)
-//            println("writingValueBack")
-//            println(writeValueDelegate)
-//
-//        }
-//    }
-    
-//    func payValue(vc: AddJobTableViewController, value: String) {
-//     
-//    }
-    
     func savePayRate() {
         payRate.payRate = payTextField.text
         self.performSegueWithIdentifier("unwindFromPayRate", sender: self)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        saveButton = UIBarButtonItem(title: "Save", style: .Plain, target: self, action: "savePayRate")
-        self.navigationItem.rightBarButtonItem = saveButton
-        
-        self.title = "Pay Rate"
-        
-        payTextField.text = payRate.payRate
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
     override func didReceiveMemoryWarning() {

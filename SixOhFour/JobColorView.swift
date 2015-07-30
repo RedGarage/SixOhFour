@@ -21,6 +21,5 @@ class JobColorView: UIView {
         color.setFill()
         path.fill()
     }
-
-
+    
 }
