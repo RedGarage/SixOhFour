@@ -12,9 +12,7 @@ import CoreData
 
 
 class Color: NSManagedObject {
-
     @NSManaged var name: String
     @NSManaged var isSelected: NSNumber
     @NSManaged var job: Job
-
 }

@@ -18,10 +18,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         tableView.dataSource = self
         tableView.delegate = self
-        
         fetchData()
     }
     
@@ -29,7 +27,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         super.viewWillAppear(animated)
         
         fetchData()
-        
         tableView.reloadData()
     }
     
@@ -79,8 +76,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
         self.performSegueWithIdentifier("jobOverview", sender: self)
     }
-    
-    // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
