@@ -10,12 +10,10 @@ import Foundation
 import CoreData
 
 class Timelog: NSManagedObject {
-
     @NSManaged var comment: String
     @NSManaged var lastUpdate: NSDate
     @NSManaged var time: NSDate
     @NSManaged var type: String
     @NSManaged var updatedBy: String
     @NSManaged var workedShift: WorkedShift
-
 }

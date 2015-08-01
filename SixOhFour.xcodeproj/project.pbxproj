@@ -38,6 +38,7 @@
 		87B7C18E1B69C22800C65C96 /* Timelog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B7C18D1B69C22800C65C96 /* Timelog.swift */; };
 		87B7C1901B69C91D00C65C96 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B7C18F1B69C91D00C65C96 /* Color.swift */; };
 		87F4B3781B57411C001B9526 /* JobColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F4B3771B57411C001B9526 /* JobColor.swift */; };
+		9DFE2A021B6C3429007F658E /* String+SixOhFour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE2A011B6C3429007F658E /* String+SixOhFour.swift */; };
 		B90FA0551B4320A6004B4D79 /* CVCalendarContentDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90FA0411B4320A6004B4D79 /* CVCalendarContentDelegate.swift */; };
 		B90FA0561B4320A6004B4D79 /* CVCalendarContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90FA0421B4320A6004B4D79 /* CVCalendarContentViewController.swift */; };
 		B90FA0571B4320A6004B4D79 /* CVCalendarDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90FA0431B4320A6004B4D79 /* CVCalendarDayView.swift */; };
@@ -116,6 +117,7 @@
 		87B7C18D1B69C22800C65C96 /* Timelog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Timelog.swift; path = ../Timelog.swift; sourceTree = "<group>"; };
 		87B7C18F1B69C91D00C65C96 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Color.swift; path = ../Color.swift; sourceTree = "<group>"; };
 		87F4B3771B57411C001B9526 /* JobColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobColor.swift; sourceTree = "<group>"; };
+		9DFE2A011B6C3429007F658E /* String+SixOhFour.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+SixOhFour.swift"; sourceTree = "<group>"; };
 		B90FA0411B4320A6004B4D79 /* CVCalendarContentDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CVCalendarContentDelegate.swift; sourceTree = "<group>"; };
 		B90FA0421B4320A6004B4D79 /* CVCalendarContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CVCalendarContentViewController.swift; sourceTree = "<group>"; };
 		B90FA0431B4320A6004B4D79 /* CVCalendarDayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CVCalendarDayView.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 				874FAD031B33A9D7002EABB0 /* LaunchScreen.xib */,
 				874FACF91B33A9D7002EABB0 /* SixOhFour.xcdatamodeld */,
 				874FACF51B33A9D7002EABB0 /* Supporting Files */,
+				9DFE2A011B6C3429007F658E /* String+SixOhFour.swift */,
 			);
 			path = SixOhFour;
 			sourceTree = "<group>";
@@ -491,6 +494,7 @@
 				B90FA0571B4320A6004B4D79 /* CVCalendarDayView.swift in Sources */,
 				87B7C18E1B69C22800C65C96 /* Timelog.swift in Sources */,
 				87238A4E1B3E300A004D44CA /* CalendarViewController.swift in Sources */,
+				9DFE2A021B6C3429007F658E /* String+SixOhFour.swift in Sources */,
 				87B7C18C1B69C22800C65C96 /* ScheduledShift.swift in Sources */,
 				87B7C1901B69C91D00C65C96 /* Color.swift in Sources */,
 				87B7C1801B69C22700C65C96 /* WorkedShift.swift in Sources */,

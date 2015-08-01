@@ -10,9 +10,7 @@ import Foundation
 import CoreData
 
 class RepeatingSchedule: NSManagedObject {
-
     @NSManaged var endDate: NSDate
     @NSManaged var startDate: NSDate
     @NSManaged var schedule: NSManagedObject
-
 }

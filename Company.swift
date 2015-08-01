@@ -12,8 +12,6 @@ import CoreData
 
 
 class Company: NSManagedObject {
-
     @NSManaged var name: String
     @NSManaged var jobs: NSSet
-
 }
