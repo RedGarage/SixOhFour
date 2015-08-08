@@ -60,12 +60,6 @@ class AddJobTableViewController: UITableViewController, UIPickerViewDataSource, 
             jobColorView.color = jc.getJobColor(colorLabel.text!)
         }
         
-        if job != nil {
-            payRate.payRate = "\(job.payRate)"
-        }
-    }
-    
-    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -133,15 +127,13 @@ class AddJobTableViewController: UITableViewController, UIPickerViewDataSource, 
         
         job.setValue(company, forKey: "company")
         job.position = positionTextField.text
-        job.payRate = NSDecimalNumber(string: payRateLabel.text)
         job.setValue(color, forKey: "color")
-        
-        println(job.company.name)
-        println(job.color.name)
-        
-        println(color)
-        print(job)
-        print(company)
+    
+        if payRate == nil {
+            job.payRate = 0.00
+        }
+
+
         context!.save(nil)
     }
     
@@ -156,6 +148,7 @@ class AddJobTableViewController: UITableViewController, UIPickerViewDataSource, 
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 1
     }
+    
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return pickerData.count
     }

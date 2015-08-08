@@ -33,12 +33,32 @@ class JobOverviewViewController: UIViewController, NSFetchedResultsControllerDel
         
         nameLabel.text = job.company.name
         positionLabel.text = job.position
-        payLabel.text = "$\(job.payRate)/hr"
+        payLabel.text = "\(numberFormatter.stringFromNumber(pay)!)/hr"
+        
+        calculateRegHours()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func fetchData() {
+        var appDel:AppDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
+        var context:NSManagedObjectContext = appDel.managedObjectContext!
+        
+        var request = NSFetchRequest(entityName: "WorkedShift")
+        request.returnsObjectsAsFaults = false ;
+        
+        var results:NSArray = context.executeFetchRequest(request, error: nil)!
+        
+        allWorkedShifts = results as! [WorkedShift]
+    }
+    
+    func calculateRegHours() {
+        fetchData()
+        
+        println(allWorkedShifts) 
     }
     
     func editJob() {
