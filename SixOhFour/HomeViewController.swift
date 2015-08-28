@@ -28,13 +28,13 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.dataSource = self
         tableView.delegate = self
         
-        fetchData()
+        fetchJobData()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        fetchData()
+        fetchJobData()
         
         toggleAddButton()
         
@@ -49,7 +49,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
-    func fetchData() {
+    func fetchJobData() {
         jobs = dataManager.fetch("Job") as! [Job]
     }
     
@@ -61,21 +61,37 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if (editingStyle == .Delete) {
             tableView.beginUpdates()
             
-            let jobDelete = jobs[indexPath.row]
-            let color = jobDelete.color
+            var title = "Warning!"
+            
+            var message = "Deleting this job will also delete all associated shifts with it!"
+            
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.ActionSheet)
+            
+            let delete = UIAlertAction(title: "Delete", style: .Destructive) { (action) in
+            
+                let jobDelete = self.jobs[indexPath.row]
+                let color = jobDelete.color
 
-            let updateColor = dataManager.editItem(color, entityName: "Color") as! Color
-            updateColor.isSelected = false
+                let updateColor = self.dataManager.editItem(color, entityName: "Color") as! Color
+                updateColor.isSelected = false
+                        
+                self.jobs.removeAtIndex(indexPath.row)
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+                self.dataManager.delete(jobDelete)
+
+            }
             
-            println(color)
+            let cancel = UIAlertAction(title: "Cancel", style: .Cancel) { (action) in
+            }
             
-            jobs.removeAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
-            dataManager.delete(jobDelete)
+            alertController.addAction(delete)
+            alertController.addAction(cancel)
+            
+            self.presentViewController(alertController, animated: true, completion: nil)
             
             tableView.endUpdates()
             
-            toggleAddButton()
+            self.toggleAddButton()
         }
     }
     
@@ -86,8 +102,14 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
         header.textLabel.textAlignment = NSTextAlignment.Justified
-        
-        header.textLabel.text = "My Jobs"
+
+        if jobs.count > 1 {
+            header.textLabel.text = "My Jobs"
+        } else if jobs.count > 0 {
+            header.textLabel.text = "My Job"
+        } else if jobs.count == 0 {
+            header.textLabel.text = ""
+        }
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

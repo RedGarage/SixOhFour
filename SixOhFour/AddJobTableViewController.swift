@@ -13,17 +13,20 @@ class AddJobTableViewController: UITableViewController {
     
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var positionTextField: UITextField!
-    @IBOutlet weak var payRateLabel: UILabel!
     @IBOutlet weak var colorLabel: UILabel!
     @IBOutlet weak var colorPicker: UIPickerView!
     @IBOutlet weak var jobColorView: JobColorView!
     @IBOutlet weak var saveJobButton: UIBarButtonItem!
-
+    @IBOutlet weak var payTextField: UITextField!
+    
     var job: Job!
     var pickerVisible = false
     var payRate: NSDecimalNumber!
     var previousColor: Color!
     var selectedColor: Color!
+    var currentString = ""
+    var companyName = ""
+    var position = ""
     
     let dataManager = DataManager()
     var colors = [Color]()
@@ -39,8 +42,11 @@ class AddJobTableViewController: UITableViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
+        payTextField.delegate = self
+        
         colorPicker.dataSource = self
         colorPicker.delegate = self
+        
         
         if job != nil {
             let unitedStatesLocale = NSLocale(localeIdentifier: "en_US")
@@ -51,9 +57,10 @@ class AddJobTableViewController: UITableViewController {
             
             nameTextField.text = job.company.name
             positionTextField.text = job.position
-            payRateLabel.text = numberFormatter.stringFromNumber(pay)!
+            payTextField.text = numberFormatter.stringFromNumber(pay)!
             
             payRate = job.payRate
+            
             colorLabel.text = job.color.name
             jobColorView.color = job.color.getColor
             
@@ -65,22 +72,17 @@ class AddJobTableViewController: UITableViewController {
             jobColorView.color = colors[0].getColor
 
         }
+        
+        toggleSaveButton()
+
     }
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
-        if nameTextField.text == "" {
-            self.navigationItem.rightBarButtonItem!.enabled = false
-        }
-        
+
         nameTextField.addTarget(self, action: "textFieldDidChange:", forControlEvents: UIControlEvents.EditingChanged)
         
-        // so fresh and so clean :]
-//        if job != nil {
-//            let selectedColor = find(colors, job.color)
-//            colorPicker.selectRow(selectedColor!, inComponent: 0, animated: true)
-//        }
+        positionTextField.addTarget(self, action: "textFieldDidChange:", forControlEvents: UIControlEvents.EditingChanged)
     }
     
     override func didReceiveMemoryWarning() {
@@ -91,6 +93,19 @@ class AddJobTableViewController: UITableViewController {
     // MARK: - IBActions
     
     @IBAction func saveJobButton(sender: AnyObject) {
+        var str = nameTextField.text
+        companyName = str.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        str = positionTextField.text
+        position = str.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        
+        if payRate != nil {
+        var payStr = payTextField.text
+        payStr = payStr.stringByReplacingOccurrencesOfString(",", withString: "")
+        payStr = payStr.stringByReplacingOccurrencesOfString("$", withString: "")
+        
+        payRate = NSDecimalNumber(string: payStr)
+        }
+        
         if job != nil {
             editItem()
         } else {
@@ -99,25 +114,63 @@ class AddJobTableViewController: UITableViewController {
         navigationController?.popToRootViewControllerAnimated(true)
     }
     
-    @IBAction func unwindFromPayRateTableViewController(segue: UIStoryboardSegue) {
-        let sourceVC = segue.sourceViewController as! PayRateTableViewController
-        payRateLabel.text = "\(sourceVC.payTextField.text)"
-        
-        var str = sourceVC.payTextField.text
-        str = str.stringByReplacingOccurrencesOfString(",", withString: "")
-        str = str.stringByReplacingOccurrencesOfString("$", withString: "")
-        
-        print("str ")
-        println(str)
-        
-        payRate = NSDecimalNumber(string: str)
-        
-        tableView.beginUpdates()
-        tableView.endUpdates()
-    }
+//    @IBAction func unwindFromPayRateTableViewController(segue: UIStoryboardSegue) {
+//        let sourceVC = segue.sourceViewController as! PayRateTableViewController
+//        payTextField.text = "\(sourceVC.payTextField.text)"
+//        
+//        var str = sourceVC.payTextField.text
+//        str = str.stringByReplacingOccurrencesOfString(",", withString: "")
+//        str = str.stringByReplacingOccurrencesOfString("$", withString: "")
+//        
+//        print("str ")
+//        println(str)
+//        
+//        payRate = NSDecimalNumber(string: str)
+//        
+//        tableView.beginUpdates()
+//        tableView.endUpdates()
+//    }
     
     
     // MARK: - Class functions
+    
+    func toggleSaveButton() {
+        if nameTextField.text == "" || positionTextField.text == "" {
+            self.navigationItem.rightBarButtonItem!.enabled = false
+        } else {
+            self.navigationItem.rightBarButtonItem!.enabled = true
+        }
+    }
+    
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool { // return NO to not change text
+        
+        switch string {
+        case "0","1","2","3","4","5","6","7","8","9":
+            currentString += string
+            formatCurrency(string: currentString)
+        default:
+            var array = Array(string)
+            var currentStringArray = Array(currentString)
+            if array.count == 0 && currentStringArray.count != 0 {
+                currentStringArray.removeLast()
+                currentString = ""
+                for character in currentStringArray {
+                    currentString += String(character)
+                }
+                formatCurrency(string: currentString)
+            }
+        }
+        return false
+    }
+    
+    func formatCurrency(#string: String) {
+        println("format \(string)")
+        let formatter = NSNumberFormatter()
+        formatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
+        formatter.locale = NSLocale(localeIdentifier: "en_US")
+        var numberFromField = (NSString(string: currentString).doubleValue)/100
+        payTextField.text = formatter.stringFromNumber(numberFromField)
+    }
     
     func newItem() {
         // TODO: We should pass job.position to coredata instead of positionTextField.text
@@ -128,9 +181,9 @@ class AddJobTableViewController: UITableViewController {
         let company = dataManager.addItem("Company") as! Company
         let job = dataManager.addItem("Job") as! Job
         
-        company.name = nameTextField.text
+        company.name = companyName
         job.setValue(company, forKey: "company")
-        job.position = positionTextField.text
+        job.position = position
         job.setValue(color, forKey: "color")
         
         if payRate == nil {
@@ -138,6 +191,7 @@ class AddJobTableViewController: UITableViewController {
         } else {
             job.payRate = self.payRate
         }
+        
         dataManager.save()
     }
     
@@ -151,8 +205,8 @@ class AddJobTableViewController: UITableViewController {
         
         let editJob = dataManager.editItem(job, entityName: "Job") as! Job
         
-        editJob.company.name = nameTextField.text
-        editJob.position = positionTextField.text
+        editJob.company.name = companyName
+        editJob.position = position
         editJob.payRate = payRate
         editJob.color = currentColor
         
@@ -163,7 +217,7 @@ class AddJobTableViewController: UITableViewController {
     // MARK: - Table view data source
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.row == 3 {
+        if indexPath.section == 1 && indexPath.row == 1 {
             pickerVisible = !pickerVisible
 
             tableView.reloadData()
@@ -172,7 +226,7 @@ class AddJobTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.row == 4 {
+        if indexPath.section == 1 && indexPath.row == 2 {
             if pickerVisible == false {
                 return 0.0
             }
@@ -227,9 +281,11 @@ extension AddJobTableViewController: UITextFieldDelegate {
     
     func textFieldDidChange(textField: UITextField) {
         let whitespaceSet = NSCharacterSet.whitespaceCharacterSet()
-        if textField.text.stringByTrimmingCharactersInSet(whitespaceSet) != "" {
-            self.navigationItem.rightBarButtonItem!.enabled = true
-        }
+//        if textField.text.stringByTrimmingCharactersInSet(whitespaceSet) != "" {
+//            self.navigationItem.rightBarButtonItem!.enabled = true
+//        }
+        
+        toggleSaveButton()
     }
     
 }

@@ -56,6 +56,26 @@ class DataManager {
     }
     
     func delete(objectToDelete: NSManagedObject) {
+        if let job = objectToDelete as? Job {
+
+            let wArray = job.workedShifts.allObjects as NSArray
+            let workedShifts = wArray as! [WorkedShift]
+    
+            for shift in workedShifts{
+                for timelog in shift.timelogs {
+                    context?.deleteObject(timelog as! NSManagedObject)
+                }
+                context?.deleteObject(shift)
+            }
+            
+            let sArray = job.scheduledShifts.allObjects as NSArray
+            let scheduledShifts = sArray as! [ScheduledShift]
+            
+            for shift in scheduledShifts{
+                context?.deleteObject(shift)
+            }
+        }
+        
         context?.deleteObject(objectToDelete)
         save()
     }

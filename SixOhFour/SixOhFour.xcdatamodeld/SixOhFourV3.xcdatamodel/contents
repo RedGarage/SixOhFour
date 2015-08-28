@@ -25,17 +25,11 @@
         <attribute name="reminder" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="reminder2" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
     </entity>
-    <entity name="RepeatingSchedule" representedClassName="RepeatingSchedule" syncable="YES">
-        <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
-        <relationship name="schedule" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ScheduledShift" inverseName="scheduledShifts" inverseEntity="ScheduledShift" syncable="YES"/>
-    </entity>
     <entity name="ScheduledShift" representedClassName="ScheduledShift" syncable="YES">
         <attribute name="endTime" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="startDate" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="startTime" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="job" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Job" inverseName="scheduledShifts" inverseEntity="Job" syncable="YES"/>
-        <relationship name="scheduledShifts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="RepeatingSchedule" inverseName="schedule" inverseEntity="RepeatingSchedule" syncable="YES"/>
     </entity>
     <entity name="Timelog" representedClassName="Timelog" syncable="YES">
         <attribute name="comment" optional="YES" attributeType="String" syncable="YES"/>
@@ -60,8 +54,7 @@
         <element name="Company" positionX="-119" positionY="-126" width="128" height="73"/>
         <element name="Job" positionX="-63" positionY="-1" width="128" height="135"/>
         <element name="Reminders" positionX="-423" positionY="209" width="128" height="133"/>
-        <element name="RepeatingSchedule" positionX="-389" positionY="-0" width="128" height="88"/>
-        <element name="ScheduledShift" positionX="-216" positionY="-0" width="128" height="120"/>
+        <element name="ScheduledShift" positionX="-216" positionY="-0" width="128" height="105"/>
         <element name="Timelog" positionX="304" positionY="-0" width="128" height="133"/>
         <element name="UserPreferences" positionX="-272" positionY="212" width="128" height="58"/>
         <element name="WorkedShift" positionX="124" positionY="5" width="128" height="118"/>
