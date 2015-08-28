@@ -18,7 +18,7 @@ class Job: NSManagedObject {
     //RELATIONSHIP TO OTHER Classes
     @NSManaged var company: Company
     @NSManaged var color: Color
-    @NSManaged var schedule: NSManagedObject
+    @NSManaged var scheduledShifts: NSSet
     @NSManaged var workedShifts: NSSet
 
     

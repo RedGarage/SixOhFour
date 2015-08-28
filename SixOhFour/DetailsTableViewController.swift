@@ -16,7 +16,7 @@ class DetailsTableViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var jobLabel: UILabel!
     @IBOutlet weak var entryLabel: UILabel!
     @IBOutlet weak var timestampLabel: UILabel!
-    @IBOutlet weak var commentTextField: UITextField!
+    @IBOutlet weak var commentTextView: UITextView!
     @IBOutlet weak var timestampPicker: UIDatePicker!
     @IBOutlet weak var minTimeLabel: UILabel!
     @IBOutlet weak var maxTimeLabel: UILabel!
@@ -44,7 +44,7 @@ class DetailsTableViewController: UITableViewController, UITextFieldDelegate {
         entryLabel.text = nItem.type
         timestampLabel.text = "\(nItem.time)"
         minTimeLabel.hidden = true
-        commentTextField.text = nItem.comment
+        commentTextView.text = nItem.comment
         
         
         doneButton = UIBarButtonItem(title: "Save", style: .Plain, target: self, action: "saveDetails")
@@ -76,8 +76,14 @@ class DetailsTableViewController: UITableViewController, UITextFieldDelegate {
         if noMaxDate == true {
             //No NextTimeStamp for Maxium Data
             //And no MinDate to set 24hr restriction
-            timestampPicker.maximumDate = NSDate()
-            maxTimeLabel.text = "Cannot select a future time."
+
+            if nItem.type == "Clocked Out" {
+                timestampPicker.maximumDate = NSDate().dateByAddingTimeInterval(8*60*60)
+                maxTimeLabel.text = "Cannot exceed 8 hrs from now."
+            } else {
+                timestampPicker.maximumDate = NSDate()
+                maxTimeLabel.text = "Cannot select a future time."
+            }
             
 //        } else if noMaxDate == true && nItemPrevious.time > 24hours ago {
 //
@@ -142,7 +148,7 @@ class DetailsTableViewController: UITableViewController, UITextFieldDelegate {
         
         nItem.type = entryLabel.text!
         nItem.time = timestampPicker.date
-        nItem.comment = commentTextField.text
+        nItem.comment = commentTextView.text
         nItem.lastUpdate = NSDate()
         println(nItem)
         //        context!.save(nil)
@@ -188,7 +194,7 @@ class DetailsTableViewController: UITableViewController, UITextFieldDelegate {
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
 
-        commentTextField.resignFirstResponder()
+        commentTextView.resignFirstResponder()
         
         if hideTimePicker == false {
             hideTimePicker(true)
